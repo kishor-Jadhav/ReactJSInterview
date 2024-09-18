@@ -1,0 +1,11 @@
+.div-blocks{
+    border: 2px;
+    border-color: black;
+    border-style: solid;
+    .--child-block{
+        border: 1px;
+        border-color: green;
+        border-style: solid;
+        margin: 5px;
+    }
+}

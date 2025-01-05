@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import UseCallbackComponent2 from "./UseCallbackComponent2";
 const UseCallbackComponent1: React.FC =()=>{
     const [toggle,settoggle] = useState<string[]>([]); 
@@ -7,10 +7,10 @@ const UseCallbackComponent1: React.FC =()=>{
         console.log("Click to parent");
         setCount((t)=>t+1)
     }
-    const handleToggle=()=>{
-        setCount((t)=>t+1)
+    const handleToggle=useCallback(()=>{
+        
         settoggle((t)=>[...t,'New Item'])
-    }
+    },[toggle])
     return(
         <>
         <UseCallbackComponent2 handleClick={handleClickParent} handleToggle = {handleToggle} ></UseCallbackComponent2>

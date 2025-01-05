@@ -1,0 +1,75 @@
+  it('increments the count when Increment+ button is clicked', () => {
+    render(<ClassMainComponent />);
+    
+    const incrementButton = screen.getByText('Increment+');
+    
+    act(() => {
+      fireEvent.click(incrementButton);
+    });
+
+    expect(screen.getByText('2')).toBeInTheDocument(); // count should increment
+  });
+
+  it('decrements the count when Decrement+ button is clicked', () => {
+    render(<ClassMainComponent />);
+
+    const decrementButton = screen.getByText('Decrement+');
+
+    act(() => {
+      fireEvent.click(decrementButton);
+    });
+
+    expect(screen.getByText('0')).toBeInTheDocument(); // count should decrement
+  });
+
+  it('fetches user details and updates the state when Get User details button is clicked', async () => {
+    // Mock the fetch API response
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve({ id: 1, name: 'John Doe' }),
+      })
+    ) as jest.Mock;
+
+    render(<ClassMainComponent />);
+
+    const getUserDetailsButton = screen.getByText('Get User details');
+
+    await act(async () => {
+      fireEvent.click(getUserDetailsButton);
+    });
+
+    expect(screen.getByText(/John Doe/)).toBeInTheDocument(); // User details should be fetched and displayed
+  });
+
+  it('fetches user list and updates the state when Get User List button is clicked', async () => {
+    // Mock the fetch API response
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve([{ id: 1, name: 'John Doe' }]),
+      })
+    ) as jest.Mock;
+
+    render(<ClassMainComponent />);
+
+    const getUserListButton = screen.getByText('Get User List');
+
+    await act(async () => {
+      fireEvent.click(getUserListButton);
+    });
+
+    expect(screen.getByText(/John Doe/)).toBeInTheDocument(); // User list should be fetched and displayed
+  });
+
+  it('subscribes to the service and updates the state when component mounts', async () => {
+    // Mock the fetchUserDetailService to return a mock observable
+    (fetchUserDetailService as jest.Mock).mockReturnValue({
+      subscribe: jest.fn(({ next }) => {
+        next({ data: { id: 1, name: 'Jane Doe' } });
+      }),
+    });
+
+    render(<ClassMainComponent />);
+
+    // Ensure the subscription works and the state is updated
+    expect(screen.getByText(/Jane Doe/)).toBeInTheDocument();
+  });

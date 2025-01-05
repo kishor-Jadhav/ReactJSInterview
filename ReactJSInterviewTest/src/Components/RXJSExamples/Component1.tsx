@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { getsharedObservable } from "../Services/commonService";
 import Component1Sub1 from "./Component1Sub1";
+import { Subscription } from "rxjs";
 
 const Component1 : React.FC= ()=>{
     const [data,setdata]= useState<any>();
+    const allSubscription = new Subscription();
     useEffect(()=>{
     const sharedObservable$ = getsharedObservable();
 
@@ -13,10 +15,10 @@ const Component1 : React.FC= ()=>{
           setdata(res)
         }
     })
-
+    allSubscription.add(subscription)
     return()=>{
      console.log("cleanup")
-     subscription.unsubscribe();
+     allSubscription.unsubscribe();
     }
     },[])
 

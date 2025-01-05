@@ -23,7 +23,12 @@ const Dashboard: React.FC = () => {
         <button className="--button-div" onClick={()=>handleButtonClick("/useRef")}>Use Ref</button>
         <button className="--button-div" onClick={()=>handleButtonClick("/useReducerSingle")}>Use Reducer Single</button>
         <button className="--button-div" onClick={()=>handleButtonClick("/useReducerContext")}>Use Reducer Context</button>
-
+        <button className="--button-div" onClick={()=>handleButtonClick("/forwardReff")}>Forward Reff</button>
+        <button className="--button-div" onClick={()=>handleButtonClick("/higherOrderCompEx1")}>Higher Order Component ex 1</button>
+        <button className="--button-div" onClick={()=>handleButtonClick("/higherOrderCompEx2")}>Higher Order Component Ex 2</button>
+        <button className="--button-div" onClick={()=>handleButtonClick("/classComp")}>Class Component</button>
+        <button className="--button-div" onClick={()=>handleButtonClick("/emitter")}>Event Emitter</button>
+        <button className="--button-div" onClick={()=>handleButtonClick("/render")}>Test render</button>
         <ul>
           <li>
             <Link to="/rxjs">RxJS Example</Link>
